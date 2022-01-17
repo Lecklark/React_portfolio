@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import Header from './components/Header';
+import { Routes, Route } from "react-router-dom";
+import Works from './components/Works';
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchWorks } from './redux/actions';
+import { useSelector } from "react-redux";
+import About from './components/About';
+import Contact from './components/Contacts';
 
 function App() {
+
+  const repos = useSelector(state => state.works.works);
+  const dispatch = useDispatch();
+  useMemo(() => {
+    dispatch(fetchWorks())
+  }, [dispatch])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='wrapper'>
+      <Header />
+      <Routes>
+        <Route path="/React_portfolio/" element={<Works repos={repos} />}></Route>
+        <Route path="/React_portfolio/about" element={<About />}></Route>
+        <Route path="/React_portfolio/contact" element={<Contact />}></Route>
+      </Routes>
     </div>
   );
 }
