@@ -3,6 +3,11 @@ $md2: 600px;
 $md3: 1520px;
 $md4: 600px;
 
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -599,4 +604,51 @@ $md4: 600px;
       margin-bottom: 30px;
     }
   }
+}
+
+.page {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  top: 130px;
+  &-enter {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  &-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+  }
+  &-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  &-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
+  }
+}
+
+.page-enter {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
 }

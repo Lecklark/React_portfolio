@@ -36,7 +36,6 @@ export function sendEmail(event) {
                     dispatch(hideLoader())
                     dispatch(showAlert("Успешно отправлено", "success"))
                     event.target.reset()
-
                 },
                 error => {
                     dispatch(hideLoader())
@@ -48,7 +47,7 @@ export function sendEmail(event) {
 
 export function fetchWorks() {
     return async dispatch => {
-        dispatch(showLoader())
+        dispatch(showLoader());
         const cardInfos = [];
         let userRepos = await fetch('https://api.github.com/users/Lecklark/repos');
         userRepos = await userRepos.json();

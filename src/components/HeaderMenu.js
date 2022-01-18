@@ -5,7 +5,7 @@ import vkIcon from '../assets/social/vkIcon.png';
 import githubIcon from '../assets/social/githubIcon.png';
 import instagramIcon from '../assets/social/instagramIcon.png';
 
-const HeaderMenu = ({ open, setOpen }) => {
+const HeaderMenu = ({ open, setOpen, routes }) => {
 
     const newPage = () => {
         setOpen(false)
@@ -14,14 +14,16 @@ const HeaderMenu = ({ open, setOpen }) => {
     return (
         <div className={open ? "menu open" : "menu"}>
             <nav className="menu__navigation">
-                <NavLink onClick={newPage} className="menu__link" to="/React_portfolio">Работы</NavLink>
-                <NavLink onClick={newPage} className="menu__link" to="/React_portfolio/about">Обо мне</NavLink>
-                <NavLink onClick={newPage} className="menu__link" to="/React_portfolio/contact">Контакты</NavLink>
+                {routes.map(route => (
+                    <NavLink exact key={route.path} to={route.path} className="menu__link" onClick={newPage}>
+                        {route.name}
+                    </NavLink>
+                ))}
             </nav>
             <div className="menu__socials">
                 <SocialIcon href={"https://vk.com/one_hundred_zips"} src={vkIcon} />
-                <SocialIcon href={"https://vk.com/one_hundred_zips"} src={githubIcon} />
-                <SocialIcon href={"https://vk.com/one_hundred_zips"} src={instagramIcon} />
+                <SocialIcon href={"https://github.com/Lecklark"} src={githubIcon} />
+                <SocialIcon href={"https://www.instagram.com/one_hundred_zips/"} src={instagramIcon} />
             </div>
         </div>)
 }

@@ -1,13 +1,14 @@
 import './App.scss';
 import Header from './components/Header';
-import { Routes, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Works from './components/Works';
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { fetchWorks } from './redux/actions';
 import { useSelector } from "react-redux";
 import About from './components/About';
 import Contact from './components/Contacts';
+import { CSSTransition } from 'react-transition-group';
 
 function App() {
 
@@ -17,15 +18,34 @@ function App() {
     dispatch(fetchWorks())
   }, [dispatch])
 
+
+  const routes = [
+    { path: '/', name: 'Работы', Component: <Works repos={repos} /> },
+    { path: '/about', name: 'Обо мне', Component: <About /> },
+    { path: '/contact', name: 'Контакты', Component: <Contact /> },
+  ]
+
+
   return (
     <div className='wrapper'>
-      <Header />
-      <Routes>
-        <Route path="/React_portfolio/" element={<Works repos={repos} />}></Route>
-        <Route path="/React_portfolio/about" element={<About />}></Route>
-        <Route path="/React_portfolio/contact" element={<Contact />}></Route>
-      </Routes>
-    </div>
+      <Header routes={routes} />
+      {routes.map(({ path, Component }) => (
+        <Route key={path} exact path={path}>
+          {({ match }) => (
+            <CSSTransition
+              in={match != null}
+              timeout={300}
+              classNames="page"
+              unmountOnExit
+            >
+              <div className="page">
+                {Component}
+              </div>
+            </CSSTransition>
+          )}
+        </Route>
+      ))}
+    </div >
   );
 }
 
